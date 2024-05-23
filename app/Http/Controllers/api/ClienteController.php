@@ -94,7 +94,15 @@ class ClienteController extends Controller
                 'msg' => 'Se produjo un error en las validaciones de la información',
                 'statuscode' => 422,
                 'errors' => $validator->errors(),
-            ], 422);
+            ]);
+        }
+
+        $cliente =Cliente::find($id);
+       
+
+
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
 
         $cliente->update($request->all());

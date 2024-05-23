@@ -12,5 +12,4 @@ class Cliente extends Model
     protected $primarykey='categorias_id';
     public $timestamp=false;
 
-
 }
