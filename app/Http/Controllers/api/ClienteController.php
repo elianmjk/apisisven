@@ -76,34 +76,28 @@ class ClienteController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validator = Validator::make($request->all(), [
-            'nombre' => ['sometimes', 'required', 'max:255'],
-            'direccion' => ['sometimes', 'required', 'max:255'],
-            'categorias_id' => ['sometimes', 'required', 'exists:categorias,categorias_id'],
-            'telefono' => ['sometimes', 'required', 'max:15'],
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'msg' => 'Se produjo un error en las validaciones de la información',
-                'statuscode' => 422,
-                'errors' => $validator->errors(),
-            ]);
-        }
-<<<<<<< HEAD
-        $cliente =Cliente::find($id);
-=======
         $cliente = Cliente::find($id);
->>>>>>> master
 
         if (!$cliente) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
         }
 
-        $cliente->nombre = $request->nombre ?? $cliente->nombre;
-        $cliente->direccion = $request->direccion ?? $cliente->direccion;
-        $cliente->categorias_id = $request->categorias_id ?? $cliente->categorias_id;
-        $cliente->telefono = $request->telefono ?? $cliente->telefono;
-        $cliente->save();
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'sometimes|required|string|max:255',
+            'direccion' => 'sometimes|required|string|max:255',
+            'categorias_id' => 'sometimes|required|exists:categorias,categorias_id',
+            'telefono' => 'sometimes|required|string|max:15',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'msg' => 'Se produjo un error en las validaciones de la información',
+                'statuscode' => 422,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $cliente->update($request->all());
 
         return response()->json(['cliente' => $cliente]);
     }
