@@ -11,8 +11,5 @@ class Cliente extends Model
     protected $table='clientes';
     protected $primarykey='categorias_id';
     public $timestamp=false;
-<<<<<<< HEAD
-=======
-    
->>>>>>> master
+
 }

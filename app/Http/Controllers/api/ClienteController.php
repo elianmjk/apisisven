@@ -89,11 +89,10 @@ class ClienteController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
-<<<<<<< HEAD
+
         $cliente =Cliente::find($id);
-=======
-        $cliente = Cliente::find($id);
->>>>>>> master
+       
+
 
         if (!$cliente) {
             return response()->json(['message' => 'Cliente no encontrado'], 404);
