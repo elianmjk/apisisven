@@ -15,7 +15,6 @@ class CategoriaController extends Controller
     public function index()
     {
         $categorias = Categoria::all();
-
         return response()->json(['categorias' => $categorias]);
     }
 
@@ -24,18 +23,19 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        // Validar la solicitud
         $validator = Validator::make($request->all(), [
-            'nombre' => ['required', 'max:255'],
-            'descripcion' => ['required'],
-            'codigo' => ['required', 'integer'],
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'codigo' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en las validaciones de la información',
                 'statuscode' => 422,
-                'errors' => $validator->errors(),
-            ]);
+                'errors' => $validator->errors()
+            ], 422);
         }
 
         $categoria = new Categoria();
@@ -85,10 +85,14 @@ class CategoriaController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
+        
+        $categoria = new Categoria;
+        $categoria=$request->nombre;
+        $categoria=$request->descripcion;
+        $categoria=$request->codigo;
+        $categoria->save();
 
-        $categoria->update($request->all());
-
-        return response()->json(['categoria' => $categoria]);
+        return response()->json(['categorias' => $categoria]);
     }
 
     /**

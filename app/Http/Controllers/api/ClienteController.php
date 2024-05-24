@@ -16,11 +16,12 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = DB::table('clientes')
-        ->join('categorias', 'clientes.categorias_id', '=', 'categorias.categorias_id')
+        ->join('categorias', 'clientes.categoria_id', '=', 'categorias.id')
         ->select('clientes.*', 'categorias.nombre as categoria_nombre')
         ->get();
-
-     return response()->json(['clientes' => $clientes]);
+    
+    return response()->json(['clientes' => $clientes]);
+    
     }
 
     /**
@@ -28,6 +29,8 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
+     
+
         $validator = Validator::make($request->all(), [
             'nombre' => ['required', 'max:255'],
             'direccion' => ['required', 'max:255'],
