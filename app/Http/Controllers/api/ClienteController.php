@@ -16,11 +16,12 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = DB::table('clientes')
-        ->join('categorias', 'clientes.categorias_id', '=', 'categorias.categorias_id')
+        ->join('categorias', 'clientes.categoria_id', '=', 'categorias.id')
         ->select('clientes.*', 'categorias.nombre as categoria_nombre')
         ->get();
-
-     return response()->json(['clientes' => $clientes]);
+    
+    return response()->json(['clientes' => $clientes]);
+    
     }
 
     /**

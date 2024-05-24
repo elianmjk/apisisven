@@ -15,6 +15,7 @@ class MetodopagoController extends Controller
     public function index()
     {
         return Metodopago::all();
+        
     }
 
     /**
@@ -38,12 +39,12 @@ class MetodopagoController extends Controller
         ], 422);
     }
 
-    // Crear el nuevo método de pago
-    $metodoPago = MetodoPago::create([
-        'nombre' => $request->nombre,
-        'titulardelacuenta' => $request->titulardelacuenta,
-        'numerocuenta' => $request->numerocuenta,
-    ]);
+   
+        $metodoPago = new MetodoPago;
+        $metodoPago= $request->nombre;
+        $metodoPago= $request->titulardelacuenta;
+        $metodoPago= $request->numerocuenta;
+
 
     return response()->json(['metodo_pago' => $metodoPago], 201);
     }
@@ -87,6 +88,13 @@ class MetodopagoController extends Controller
                 'statuscode' => 422,
                 'errors' => $validator->errors()
             ], 422);
+
+            $metodoPago = new MetodoPago;
+            $metodoPago= $request->nombre;
+            $metodoPago= $request->titulardelacuenta;
+            $metodoPago= $request->numerocuenta;
+            $metodoPago->save();
+    
     }}
     /**
      * Remove the specified resource from storage.

@@ -14,9 +14,16 @@ class CategoriaController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
+    
+    $categorias= Categoria::all();
+    return response()->json(['categorias' => $categorias]);
+
+=======
         $categorias = Categoria::all();
 
         return response()->json(['categorias' => $categorias]);
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
     }
 
     /**
@@ -24,16 +31,41 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
+        // Validar la solicitud
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'codigo' => 'required|integer',
+        ]);
+
+        // Verificar si la validación falla
+=======
         $validator = Validator::make($request->all(), [
             'nombre' => ['required', 'max:255'],
             'descripcion' => ['required'],
             'codigo' => ['required', 'integer'],
         ]);
 
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
         if ($validator->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en las validaciones de la información',
                 'statuscode' => 422,
+<<<<<<< HEAD
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        // Crear la nueva categoría
+        $categorias = new Categoria;
+        $categorias=$request->nombre;
+        $categorias=$request->descripcion;
+        $categorias=$request->codigo;
+        $categorias->save();
+         
+        return response()->json(['categorias' => $categorias], 201);
+=======
                 'errors' => $validator->errors(),
             ]);
         }
@@ -45,6 +77,7 @@ class CategoriaController extends Controller
         $categoria->save();
 
         return response()->json(['categoria' => $categoria], 201);
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
     }
 
     /**
@@ -54,7 +87,11 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
+<<<<<<< HEAD
+        if (!$categoria) {
+=======
         if (is_null($categoria)) {
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
             return response()->json(['message' => 'Categoría no encontrada'], 404);
         }
 
@@ -68,6 +105,20 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
+<<<<<<< HEAD
+        if (!$categoria) {
+            return response()->json(['message' => 'Categoría no encontrada'], 404);
+        }
+
+        // Validar la solicitud
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'sometimes|required|string|max:255',
+            'descripcion' => 'sometimes|required|string|max:255',
+            'codigo' => 'sometimes|required|integer',
+        ]);
+
+        // Verificar si la validación falla
+=======
         if (is_null($categoria)) {
             return response()->json(['message' => 'Categoría no encontrada'], 404);
         }
@@ -78,10 +129,24 @@ class CategoriaController extends Controller
             'codigo' => ['sometimes', 'required', 'integer'],
         ]);
 
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
         if ($validator->fails()) {
             return response()->json([
                 'msg' => 'Se produjo un error en las validaciones de la información',
                 'statuscode' => 422,
+<<<<<<< HEAD
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        
+        $categoria = new Categoria;
+        $categoria=$request->nombre;
+        $categoria=$request->descripcion;
+        $categoria=$request->codigo;
+        $categoria->save();
+
+        return response()->json(['categorias' => $categoria]);
+=======
                 'errors' => $validator->errors(),
             ]);
         }
@@ -89,6 +154,7 @@ class CategoriaController extends Controller
         $categoria->update($request->all());
 
         return response()->json(['categoria' => $categoria]);
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
     }
 
     /**
@@ -98,7 +164,11 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
 
+<<<<<<< HEAD
+        if (!$categoria) {
+=======
         if (is_null($categoria)) {
+>>>>>>> 4be678d84fe16cfe8fb0b361c0aee3a3840572f7
             return response()->json(['message' => 'Categoría no encontrada'], 404);
         }
 
