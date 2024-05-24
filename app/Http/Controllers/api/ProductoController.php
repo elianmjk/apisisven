@@ -36,6 +36,12 @@ class ProductoController extends Controller
                 'statuscode' => 422,
                 'errors' => $validator->errors(),
             ], 422);
+
+            $producto=new Producto;
+            $producto=$request->descripcion;
+            $producto=$request->precio;
+            $producto->save();
+
     }
     }
     /**
